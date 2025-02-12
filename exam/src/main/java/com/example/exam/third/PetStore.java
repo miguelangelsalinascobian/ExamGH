@@ -12,4 +12,8 @@ public class PetStore {
     public Pet getPetById(Long petId) {
         return restTemplate.getForObject(url + petId, Pet.class);
     }
+
+    public Pet savePet(Pet pet) {
+        return restTemplate.postForObject(url, pet, Pet.class);
+    }
 }

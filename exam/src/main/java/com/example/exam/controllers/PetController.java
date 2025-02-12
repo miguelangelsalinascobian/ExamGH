@@ -1,13 +1,12 @@
 package com.example.exam.controllers;
 
 import com.example.exam.entities.Pet;
+import com.example.exam.entities.PetResponse;
 import com.example.exam.services.PetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -24,5 +23,10 @@ public class PetController {
             return ResponseEntity.ok(petOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<PetResponse> createPet(@RequestBody Pet pet) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(petServiceImpl.savePet(pet));
     }
 }
